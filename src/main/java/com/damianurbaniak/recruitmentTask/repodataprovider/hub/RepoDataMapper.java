@@ -4,7 +4,6 @@ import com.damianurbaniak.recruitmentTask.repodataprovider.dto.BranchData;
 import com.damianurbaniak.recruitmentTask.repodataprovider.dto.RepoData;
 import com.damianurbaniak.recruitmentTask.repodataprovider.dto.RepoDto;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.stream.IntStream;
 
 import static com.damianurbaniak.recruitmentTask.repodataprovider.dto.RepoDto.BranchDto;
 
-@Slf4j
 @UtilityClass
 class RepoDataMapper {
 
@@ -22,13 +20,13 @@ class RepoDataMapper {
         new RepoDto(
           userRepos.get(i).name(),
           userRepos.get(i).owner().login(),
-          mapBranchDataToDtos(Arrays.stream(branchData.get(i)).toList()))
+          mapBranchDataToDtos(branchData.get(i)))
       )
       .toList();
   }
 
-  private List<BranchDto> mapBranchDataToDtos(final List<BranchData> branchData) {
-    return branchData.stream()
+  private List<BranchDto> mapBranchDataToDtos(final BranchData[] branchData) {
+    return Arrays.stream(branchData)
       .map(branch -> new BranchDto(branch.name(), branch.commit().sha()))
       .toList();
   }

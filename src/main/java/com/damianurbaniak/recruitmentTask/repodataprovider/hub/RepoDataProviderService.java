@@ -95,7 +95,7 @@ class RepoDataProviderService implements RepoDataProviderFacade {
       if (!threadPool.awaitTermination(60, TimeUnit.SECONDS)) {
         threadPool.shutdownNow();
       }
-    } catch (InterruptedException e) {
+    } catch (final InterruptedException e) {
       threadPool.shutdownNow();
       Thread.currentThread().interrupt();
     }
